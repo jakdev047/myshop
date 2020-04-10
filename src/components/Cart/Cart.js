@@ -4,7 +4,14 @@ const CartItem = props => {
   const {id,title,price,quantity} = props.item;
   return(
     <div className="cart-item">
-      <button onClick={()=>props.addCartItem(id)}>+</button>
+      <div className="btn-group">
+        <button onClick={()=>props.addCartItem(id)}>+</button>
+        <button onClick={()=>props.decrementCartItem(id)}
+                disabled={ quantity <= 0}
+        >
+          -
+        </button>
+      </div>
       <button onClick={()=>props.removeCartItem(id)}>X</button>
       <div className="info">
         <span>{title} * {quantity}</span>
@@ -14,7 +21,7 @@ const CartItem = props => {
   );
 }
 
-const Cart = ({cartItems,removeCartItem,clearCart,addCartItem}) => {
+const Cart = ({cartItems,removeCartItem,clearCart,addCartItem,decrementCartItem}) => {
   const [checkoutOpen,setCheckoutOpen] = useState(false);
   const [address,setAddress] = useState('');
 
@@ -44,7 +51,7 @@ const Cart = ({cartItems,removeCartItem,clearCart,addCartItem}) => {
         
         { cartItems.length !== 0 && 
           cartItems.map(item => {
-            return <CartItem key={item.id} item={item} removeCartItem={removeCartItem} addCartItem={addCartItem} />
+            return <CartItem key={item.id} item={item} removeCartItem={removeCartItem} addCartItem={addCartItem} decrementCartItem={decrementCartItem} />
           })
         }
       </div>

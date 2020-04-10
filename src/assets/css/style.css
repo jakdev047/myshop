@@ -122,3 +122,10 @@
 .checkout {
   background: green;
 }
+
+.cart-item .btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+}

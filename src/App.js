@@ -37,6 +37,21 @@ const App = () => {
     });
   }
 
+  const decrementCartItem = id => {
+    const item = products.find(product => product.id === id);
+    setCartItems(items => {
+      const itemIndex = items.findIndex(item =>item.id === id)
+      if( itemIndex === -1) {
+        return  [ {...item,quantity:1}, ...items ]
+      }
+      else {
+        return  items.map(item=> item.id === id ? (
+          {...item,quantity:item.quantity - 1}
+        ) : item)
+      }
+    });
+  }
+
   const removeCartItem = id => {
     setCartItems(items => {
       return items.filter(item => item.id !== id)
@@ -55,7 +70,7 @@ const App = () => {
       <Navbar setKeyword={setKeyword}/>
       <ProductList products={products} addCartItem={addCartItem}/>
       <Cart cartItems={cartItems} removeCartItem={removeCartItem}
-      clearCart={clearCart} addCartItem={addCartItem}/>
+      clearCart={clearCart} addCartItem={addCartItem} decrementCartItem={decrementCartItem}/>
     </div>
   );
 }
