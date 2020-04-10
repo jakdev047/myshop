@@ -1,11 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import data from '../data/data';
+import ProductItem from '../components/ProductList/ProductItem';
 
 const ProductDetails = () => {
-  const {id} = useParams()
+  const {id} = useParams();
+  const product = data.find(p=>p.id === parseInt(id));
   return (
-    <div>
-      <h2>ProductDetails {id} </h2>
+    <div className="product-details">
+      <ProductItem product={product}/>
     </div>
   );
 };
