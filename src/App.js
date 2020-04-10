@@ -12,12 +12,18 @@ import Cart from './components/Cart/Cart';
 
 // custom hook
 import { useCart } from './customHooks/useCart';
+import ThemeContext  from './context/ThemeContext';
 
 const App = () => {
   const [products,setProducts] = useState([...data]);
   const [keyword,setKeyword] = useState('');
+  const [dark,setdark] = useState(false);
 
   const {cartItems,addCartItem,removeCartItem,clearCart,decrementCartItem} = useCart([],products);
+
+  const toggleDark = () => {
+    setdark(isDark=>!isDark);
+  }
   
 
   useEffect(()=>{
@@ -28,12 +34,14 @@ const App = () => {
   },[keyword]);
 
   return (
-    <div className="App">
-      <Navbar setKeyword={setKeyword}/>
-      <ProductList products={products} addCartItem={addCartItem}/>
-      <Cart cartItems={cartItems} removeCartItem={removeCartItem}
-      clearCart={clearCart} addCartItem={addCartItem} decrementCartItem={decrementCartItem}/>
-    </div>
+    <ThemeContext.Provider value={{dark:dark,toggle:toggleDark}}>
+      <div className="App">
+        <Navbar setKeyword={setKeyword}/>
+        <ProductList products={products} addCartItem={addCartItem}/>
+        <Cart cartItems={cartItems} removeCartItem={removeCartItem}
+        clearCart={clearCart} addCartItem={addCartItem} decrementCartItem={decrementCartItem}/>
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
