@@ -1,5 +1,7 @@
 import React,{ useContext } from 'react';
+import { Link } from 'react-router-dom';
 import ThemeContext from '../../context/ThemeContext';
+
 
 const Navbar = ({setKeyword}) => {
 
@@ -20,6 +22,10 @@ const Navbar = ({setKeyword}) => {
       <button onClick={toggle}>
         Change Theme
       </button>
+      <div className="links">
+        <Link to="/">Home</Link>
+        <Link to="/checkout">Checkout</Link>
+      </div>
     </div>
   );
 };
