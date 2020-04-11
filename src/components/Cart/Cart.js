@@ -1,4 +1,5 @@
 import React,{ useState } from 'react';
+import { useCart } from '../../customHooks/useCart';
 
 const CartItem = props => {
   const {id,title,price,quantity} = props.item;
@@ -21,7 +22,8 @@ const CartItem = props => {
   );
 }
 
-const Cart = ({cartItems,removeCartItem,clearCart,addCartItem,decrementCartItem}) => {
+const Cart = () => {
+  const {cartItems,total,removeCartItem,clearCart,addCartItem,decrementCartItem} = useCart();
   const [checkoutOpen,setCheckoutOpen] = useState(false);
   const [address,setAddress] = useState('');
 
@@ -32,10 +34,7 @@ const Cart = ({cartItems,removeCartItem,clearCart,addCartItem,decrementCartItem}
   const handleChange = e => {
     setAddress(e.target.value)
   }
-
-  const total = cartItems.reduce((sum,current)=> sum + (current.price * current.quantity),0);
   
-
   return (
     <div className="cart">
       <h3>Cart Items</h3>

@@ -1,14 +1,18 @@
 import React,{ useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ThemeContext from '../../context/ThemeContext';
+import { store } from '../../store';
 
 
-const Navbar = ({setKeyword}) => {
+const Navbar = () => {
 
   const {dark,toggle} = useContext(ThemeContext);
+  const {dispatch} = useContext(store)
 
   const handleChange = e => {
-    setKeyword(e.target.value);
+    dispatch({
+      type:'SET_KEYWORD',payload:e.target.value
+    });
   }
 
   return (

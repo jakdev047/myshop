@@ -1,8 +1,8 @@
 import {useContext } from "react";
 import { store } from "../store";
 
-export const useCart = (products) => {
-  const {state:{cartItems},dispatch} = useContext(store);
+export const useCart = () => {
+  const {state:{products,cartItems},dispatch} = useContext(store);
   const setCartItems = (items) => {
     dispatch({type:'SET_CART_ITEMS',payload:items})
   };

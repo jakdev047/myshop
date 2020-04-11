@@ -3,6 +3,7 @@ import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
 import './assets/css/style.css';
 // components
 import Navbar from './components/Navbar/Navbar';
+import Cart from './components/Cart/Cart';
 
 // pages
 import Home from './views/Home';
@@ -15,8 +16,6 @@ import ThemeContext  from './context/ThemeContext';
 import { StateProvider } from './store';
 
 const App = () => {
-  
-  const [keyword,setKeyword] = useState('');
   const [dark,setdark] = useState(false);
 
   const toggleDark = () => {
@@ -28,13 +27,14 @@ const App = () => {
       <ThemeContext.Provider value={{dark:dark,toggle:toggleDark}}>
         <div className="App">
             <Router>
-              <Navbar setKeyword={setKeyword}/>
+              <Navbar/>
               <Switch>
-                <Route exact path="/" component={()=><Home keyword={keyword}/>}/>
+                <Route exact path="/" component={Home}/>
                 <Route exact path="/product/:id" component={ProductDetails} />
                 <Route exact path="/checkout" component={Checkout} />
                 <Route path="*" component={Error} />
               </Switch>
+              <Cart />
             </Router>
         </div>
       </ThemeContext.Provider>
