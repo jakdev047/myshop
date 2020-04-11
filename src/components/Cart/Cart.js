@@ -34,6 +34,8 @@ const Cart = ({cartItems,removeCartItem,clearCart,addCartItem,decrementCartItem}
   }
 
   const total = cartItems.reduce((sum,current)=> sum + (current.price * current.quantity),0);
+  
+
   return (
     <div className="cart">
       <h3>Cart Items</h3>

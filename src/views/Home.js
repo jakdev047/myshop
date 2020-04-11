@@ -11,7 +11,7 @@ const Home = ({keyword}) => {
 
   const [products,setProducts] = useState([...data]);
 
-  const {cartItems,addCartItem,removeCartItem,clearCart,decrementCartItem} = useCart([],products);
+  const {cartItems,addCartItem,removeCartItem,clearCart,decrementCartItem} = useCart(products);
 
   useEffect(()=>{
     const results = data.filter(product => 

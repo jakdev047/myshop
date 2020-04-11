@@ -1,42 +1,44 @@
-import { useState } from "react";
+import {useContext } from "react";
+import { store } from "../store";
 
-export const useCart = (init,products) => {
-  const [cartItems,setCartItems] = useState(init);
+export const useCart = (products) => {
+  const {state:{cartItems},dispatch} = useContext(store);
+  const setCartItems = (items) => {
+    dispatch({type:'SET_CART_ITEMS',payload:items})
+  };
 
   const addCartItem = id => {
     const item = products.find(product => product.id === id);
-    setCartItems(items => {
-      const itemIndex = items.findIndex(item =>item.id === id)
-      if( itemIndex === -1) {
-        return  [ {...item,quantity:1}, ...items ]
-      }
-      else {
-        return  items.map(item=> item.id === id ? (
+    const itemIndex = cartItems.findIndex(item =>item.id === id)
+    if( itemIndex === -1) {
+      setCartItems([...cartItems,{...item,quantity:1}])
+    }
+    else {
+      setCartItems(
+        cartItems.map(item=> item.id === id ? (
           {...item,quantity:item.quantity + 1}
         ) : item)
-      }
-    });
+      )
+    }
   }
 
   const decrementCartItem = id => {
     const item = products.find(product => product.id === id);
-    setCartItems(items => {
-      const itemIndex = items.findIndex(item =>item.id === id)
+    const itemIndex = cartItems.findIndex(item =>item.id === id)
       if( itemIndex === -1) {
-        return  [ {...item,quantity:1}, ...items ]
+        setCartItems([ {...item,quantity:1}, ...cartItems ])
       }
       else {
-        return  items.map(item=> item.id === id ? (
-          {...item,quantity:item.quantity - 1}
-        ) : item)
+        setCartItems(
+          cartItems.map(item=> item.id === id ? (
+            {...item,quantity:item.quantity - 1}
+          ) : item)
+        ) 
       }
-    });
   }
 
   const removeCartItem = id => {
-    setCartItems(items => {
-      return items.filter(item => item.id !== id)
-    })
+    setCartItems(cartItems.filter(item => item.id !== id))
   }
 
   const clearCart = () => {
@@ -46,7 +48,12 @@ export const useCart = (init,products) => {
     }
   }
 
+  const total = cartItems.reduce((sum,current)=> {
+    return sum + (current.price * current.quantity)
+  },0);
+
   return {
+    total,
     cartItems,
     addCartItem,
     decrementCartItem,

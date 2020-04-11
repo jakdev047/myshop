@@ -12,6 +12,7 @@ import Error from './views/Error';
 
 // context
 import ThemeContext  from './context/ThemeContext';
+import { StateProvider } from './store';
 
 const App = () => {
   
@@ -23,19 +24,21 @@ const App = () => {
   }
 
   return (
-    <ThemeContext.Provider value={{dark:dark,toggle:toggleDark}}>
-      <div className="App">
-          <Router>
-            <Navbar setKeyword={setKeyword}/>
-            <Switch>
-              <Route exact path="/" component={()=><Home keyword={keyword}/>}/>
-              <Route exact path="/product/:id" component={ProductDetails} />
-              <Route exact path="/checkout" component={Checkout} />
-              <Route path="*" component={Error} />
-            </Switch>
-          </Router>
-      </div>
-    </ThemeContext.Provider>
+    <StateProvider>
+      <ThemeContext.Provider value={{dark:dark,toggle:toggleDark}}>
+        <div className="App">
+            <Router>
+              <Navbar setKeyword={setKeyword}/>
+              <Switch>
+                <Route exact path="/" component={()=><Home keyword={keyword}/>}/>
+                <Route exact path="/product/:id" component={ProductDetails} />
+                <Route exact path="/checkout" component={Checkout} />
+                <Route path="*" component={Error} />
+              </Switch>
+            </Router>
+        </div>
+      </ThemeContext.Provider>
+    </StateProvider>
   );
 }
 
