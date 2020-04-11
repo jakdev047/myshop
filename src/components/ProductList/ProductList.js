@@ -1,12 +1,13 @@
-import React,{useEffect,useContext} from 'react';
+import React,{useEffect} from 'react';
 import ProductItem from './ProductItem';
 import { useCart } from '../../customHooks/useCart';
-import { store } from '../../store';
 import data from '../../data/data';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ProductList = () => {
   const {addCartItem} = useCart();
-  const {state:{keyword,products},dispatch} = useContext(store);
+  const {keyword,products} = useSelector(state=>state);
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     const results = data.filter(product => 

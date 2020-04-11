@@ -1,16 +1,13 @@
-import React, { createContext,useReducer } from "react";
-
-// create store
+import React from "react";
+import { Provider } from 'react-redux'
+import { createStore } from "redux";
+// reducer
 const init = {
   products:[],
   cartItems: [],
   keyword: ""
 }
-const store = createContext(init);
-const {Provider} = store;
-
-// reducer
-const reducer = (state,action) => {
+const reducer = (state=init,action) => {
   switch(action.type) {
     case 'SET_CART_ITEMS':
       return {
@@ -31,13 +28,15 @@ const reducer = (state,action) => {
       return state;
   }
 }
-
+// create store
+const store = createStore(
+  reducer,
+   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 // provider
 const StateProvider = ({children}) => {
-  const [state,dispatch] = useReducer(reducer,init);
-  return <Provider value={{state,dispatch}}>{children}</Provider>
+  return <Provider store={store}>{children}</Provider>
 }
-
 export {
   store,
   StateProvider

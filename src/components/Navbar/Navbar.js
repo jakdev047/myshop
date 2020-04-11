@@ -1,13 +1,12 @@
 import React,{ useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ThemeContext from '../../context/ThemeContext';
-import { store } from '../../store';
+import { useDispatch } from 'react-redux';
 
 
 const Navbar = () => {
-
   const {dark,toggle} = useContext(ThemeContext);
-  const {dispatch} = useContext(store)
+  const dispatch = useDispatch()
 
   const handleChange = e => {
     dispatch({
