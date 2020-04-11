@@ -25,14 +25,9 @@ const CartItem = props => {
 const Cart = () => {
   const {cartItems,total,removeCartItem,clearCart,addCartItem,decrementCartItem} = useCart();
   const [checkoutOpen,setCheckoutOpen] = useState(false);
-  const [address,setAddress] = useState('');
 
   const toggleCheckout = () => {
     setCheckoutOpen(status => !status)
-  }
-
-  const handleChange = e => {
-    setAddress(e.target.value)
   }
   
   return (
@@ -81,25 +76,6 @@ const Cart = () => {
           </div>
         )
       }
-
-      {
-        cartItems.length !== 0 && checkoutOpen && (
-          <div className="cart-item">
-            <div className="info">
-              <span>
-                <input type="text" placeholder="Address" onChange={handleChange}/>
-              </span>
-              <button type="submit" 
-                      className={!address ? 'clear' : 'checkout'} disabled={!address}
-                      onClick={clearCart}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        )
-      }
-      
       
     </div>
   );
