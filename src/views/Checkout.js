@@ -1,10 +1,9 @@
 import React,{useState} from 'react';
 import { useCart } from '../customHooks/useCart';
-import data from '../data/data';
 
 const Checkout = () => {
 
-  const {total,clearCart} = useCart(data);
+  const {total,clearCart} = useCart();
   const [address,setAddress] = useState('');
 
   const handleChange = e => {
