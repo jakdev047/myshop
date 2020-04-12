@@ -1,13 +1,21 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
-import data from '../data/data';
 import ProductItem from '../components/ProductList/ProductItem';
 import { useCart } from '../customHooks/useCart';
 
 const ProductDetails = () => {
   const {id} = useParams();
-  const {addCartItem,decrementCartItem,removeCartItem} = useCart(data);
-  const product = data.find(p=>p.id === parseInt(id));
+  const [product,setProduct] = useState({});
+  const {addCartItem,decrementCartItem,removeCartItem} = useCart();
+
+  useEffect(() => {
+    fetch(`https://murmuring-fortress-41915.herokuapp.com/products/${id}`)
+    .then(res=>res.json())
+    .then(data=> {
+      setProduct(data);
+    })
+  },[id])
+
   return (
     <div className="product-details">
       <ProductItem product={product} 
