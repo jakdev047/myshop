@@ -3,6 +3,7 @@ import ProductItem from './ProductItem';
 import { useCart } from '../../customHooks/useCart';
 import data from '../../data/data';
 import { useSelector, useDispatch } from 'react-redux';
+import {setProducts} from '../../action';
 
 const ProductList = () => {
   const {addCartItem} = useCart();
@@ -13,7 +14,7 @@ const ProductList = () => {
     const results = data.filter(product => 
       product.title.includes(keyword) || product.brand.includes(keyword)
     )
-    dispatch({type:'SET_PORDUCTS',payload:results});
+    dispatch(setProducts(results));
   },[dispatch,keyword]);
   return (
     <div className="product-list">

@@ -2,6 +2,7 @@ import React,{ useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ThemeContext from '../../context/ThemeContext';
 import { useDispatch } from 'react-redux';
+import { setKeyword } from '../../action';
 
 
 const Navbar = () => {
@@ -9,9 +10,7 @@ const Navbar = () => {
   const dispatch = useDispatch()
 
   const handleChange = e => {
-    dispatch({
-      type:'SET_KEYWORD',payload:e.target.value
-    });
+    dispatch(setKeyword(e.target.value));
   }
 
   return (
